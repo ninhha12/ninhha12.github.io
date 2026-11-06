@@ -716,14 +716,14 @@ h3 { font-size: 1.25rem; line-height: 1.3; font-weight: 600; }
   max-width: 100%;
   display: flex;
   align-items: center;
-  height: 96px;
+  height: 80px;
   padding: 12px 16px;
   background: #ffffff;
   border: 1px solid var(--line-soft);
   border-radius: 12px;
 }
 .edu-logo img { height: 52px; width: auto; max-width: 100%; object-fit: contain; object-position: left center; }
-.edu-logo .logo-stacked { height: 72px; } /* stacked crest + wordmark needs more height to read at the same weight */
+.edu-logo .logo-stacked { height: 54px; } /* stacked crest + wordmark needs more height to read at the same weight */
 .edu-card h3 { font-size: 1.25rem; }
 .edu-school { margin: 2px 0 0; font-size: 15px; font-weight: 500; color: var(--ink-2); }
 .edu-degree { margin: 0; color: var(--ink-2); }
