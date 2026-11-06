@@ -105,8 +105,9 @@ targets resolve; single H1; no guessed slide descriptions.
   steps stack text-first, visual-after. Each step fades/slides in
   (600ms ease, 20px rise) only as it scrolls into view, one at a time,
   via a single `IntersectionObserver` (`threshold: 0.15`,
-  `rootMargin: "0px 0px -8% 0px"`); siblings stagger 150ms apart (max
-  450ms). The Experience timeline entries and skill cards use the same
+  `rootMargin: "0px 0px -8% 0px"`); elements that enter the viewport
+  together stagger 150ms apart (max 450ms), one entering alone has no
+  delay. The Experience timeline entries and skill cards use the same
   reveal. To add a step, duplicate one `<article class="card step …">`
   and renumber its `.step-num` — no JS change needed. The pattern is
   inspired by the Webflow "How it works — Scroll into view" example;
@@ -164,5 +165,6 @@ OS/browser (reveals must be instant, with no sliding).
   section at the bottom is the single place for it); contact buttons
   are now logo buttons — circular outline buttons with the real
   LinkedIn and Behance brand marks (Simple Icons, CC0) and an
-  envelope icon for Email. Email is wired to mailto; LinkedIn and
-  Behance stay disabled until Ninh shares the profile URLs.
+  envelope icon for Email. Email is wired to mailto and Behance to
+  https://www.behance.net/nnha; LinkedIn stays disabled until Ninh
+  shares the profile URL.

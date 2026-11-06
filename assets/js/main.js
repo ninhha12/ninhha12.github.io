@@ -110,8 +110,11 @@
     prevBtn.addEventListener("click", function () { showSlide(currentIndex - 1); });
     nextBtn.addEventListener("click", function () { showSlide(currentIndex + 1); });
     closeBtn.addEventListener("click", function () { dialog.close(); });
+    /* .lightbox-inner fills the whole dialog, so a click "outside" the
+       slide lands on it, not on the dialog itself. */
+    var lbInner = dialog.querySelector(".lightbox-inner");
     dialog.addEventListener("click", function (e) {
-      if (e.target === dialog) dialog.close();
+      if (e.target === dialog || e.target === lbInner) dialog.close();
     });
     dialog.addEventListener("keydown", function (e) {
       if (e.key === "ArrowLeft") { e.preventDefault(); showSlide(currentIndex - 1); }
@@ -135,37 +138,46 @@
 
   /* ---------- Active nav (IntersectionObserver) ---------- */
   var navLinks = document.querySelectorAll(".nav-desktop a, .mobile-menu a");
-  var sections = ["about", "work", "experience", "skills", "contact"]
+  /* "home" and "education" have no nav link: observing them clears the
+     highlight there instead of leaving the previous section lit. */
+  var sections = ["home", "about", "work", "experience", "skills", "education", "contact"]
     .map(function (id) { return document.getElementById(id); })
     .filter(Boolean);
   if ("IntersectionObserver" in window && navLinks.length && sections.length) {
+    var seenId = "";
+    function applyActive() {
+      /* Contact is short and last, so it never reaches the observer's band
+         (30–40% from the top); at the bottom of the page it wins instead. */
+      var atBottom = window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 2;
+      var id = atBottom ? "contact" : seenId;
+      navLinks.forEach(function (link) {
+        if (link.getAttribute("href") === "#" + id) link.setAttribute("aria-current", "true");
+        else link.removeAttribute("aria-current");
+      });
+    }
     var observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-        var id = entry.target.id;
-        navLinks.forEach(function (link) {
-          var on = link.getAttribute("href") === "#" + id;
-          if (on) link.setAttribute("aria-current", "true");
-          else link.removeAttribute("aria-current");
-        });
+        if (entry.isIntersecting) seenId = entry.target.id;
       });
+      applyActive();
     }, { rootMargin: "-30% 0px -60% 0px" });
     sections.forEach(function (s) { observer.observe(s); });
+    window.addEventListener("scroll", applyActive, { passive: true });
   }
 
   /* ---------- Reveal on scroll, step-by-step (progressive enhancement) ----------
      Each .reveal element fades/slides in only as it scrolls into view.
-     Siblings sharing a parent (work steps, timeline entries, skill cards)
-     stagger 150ms apart (capped at 450ms) so a group unfolds one at a time
-     instead of all at once. The hidden state exists ONLY when JS has run
+     Elements that enter the viewport together (in the same observer batch)
+     stagger 150ms apart (capped at 450ms) so a group unfolds one at a time;
+     an element that scrolls in on its own appears with no delay. The hidden state exists ONLY when JS has run
      (html.js) and motion is allowed (see CSS): with JS off, or no
      IntersectionObserver, or reduced motion, everything is visible. */
   if ("IntersectionObserver" in window && !reduceMotion) {
     var revealObserver = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
+      entries.filter(function (entry) { return entry.isIntersecting; }).forEach(function (entry, i) {
         var el = entry.target;
-        var delay = parseInt(el.getAttribute("data-reveal-delay") || "0", 10);
+        var delay = Math.min(i, 3) * 150;
         if (delay) el.style.transitionDelay = delay + "ms";
         el.classList.add("in");
         revealObserver.unobserve(el);
@@ -177,21 +189,6 @@
         }
       });
     }, { threshold: 0.15, rootMargin: "0px 0px -8% 0px" });
-    var revealGroups = [];
-    document.querySelectorAll(".reveal").forEach(function (el) {
-      var parent = el.parentNode;
-      var group = null;
-      for (var i = 0; i < revealGroups.length; i++) {
-        if (revealGroups[i].parent === parent) { group = revealGroups[i]; break; }
-      }
-      if (!group) { group = { parent: parent, items: [] }; revealGroups.push(group); }
-      group.items.push(el);
-    });
-    revealGroups.forEach(function (group) {
-      group.items.forEach(function (el, i) {
-        el.setAttribute("data-reveal-delay", String(Math.min(i, 3) * 150));
-      });
-    });
     document.querySelectorAll(".reveal").forEach(function (el) {
       revealObserver.observe(el);
     });
