@@ -44,20 +44,21 @@ the accurate preview.
   from the original site's CDN and served locally (no hotlinking):
   `hero-0.jpg` / `hero-1.jpg` (homepage photos, with 600w/1200w
   derivatives for `srcset`), `fetch-01.png` … `fetch-12.png`,
-  `lego-01.png` … `lego-15.png` (with 600w JPEG thumbnails).
+  `lego-01.png` … `lego-15.png` without `lego-09.png` (a duplicate
+  slide, removed), all with 600w JPEG thumbnails.
 - `favicon.svg` — "NH" monogram.
 
 ## Notes for Ninh (please confirm)
 
-- **Typos kept verbatim on purpose:** the original resume reads
-  "Dick's Sporting Good", "Ho Chi Minh city", "data-driven around 70
-  planograms", "Troubleshoot and cleanse raw database contained over 50
-  questions", and "Power Point". These were kept as published; say the
+- **Typos kept verbatim on purpose:** the resume reads "Dick's
+  Sporting Good", "sales data-driven for Breakfast category including
+  approximate 70 planograms", "Troubleshoot raw database contained over
+  50 questions", and "Power Point"; the site also keeps "Ho Chi Minh
+  city". These were kept as published; say the
   word and they can be corrected.
-- **No LinkedIn / GitHub links, resume PDF, GPA, or "available for work"
-  statement** — none were on the original site. There is a code-comment
-  placeholder in `index.html` (`<!-- Add LinkedIn/GitHub here … -->`) for
-  adding social links once you confirm the URLs.
+- **No GitHub link, resume PDF, GPA, or "available for work"
+  statement** — none were on the original site. LinkedIn is linked from
+  the contact section (URL taken from the revised resume).
 - **Lego Presentation** has no description on the original site, so the
   card says so plainly and shows only the year 2024 (from the old
   cross-link label).
@@ -65,10 +66,11 @@ the accurate preview.
   - `lego-04.png` could only be downloaded at 1200w — the CDN returns
     HTTP 403 for its 1920w variant (retried several times). It displays
     identically at the sizes used on this site.
-  - `lego-08.png` and `lego-09.png` are byte-identical on the original
-    site: the "How STEAM Program Important?" slide appears twice in a
-    row in the original deck. Both slides are kept, in order, and slide 9
-    is labelled as the repeated slide.
+  - `lego-08.png` and `lego-09.png` were byte-identical on the original
+    site (the "How STEAM Program Important?" slide appeared twice in a
+    row). The duplicate `lego-09` was removed, so the deck has 14
+    slides; files `lego-10` … `lego-15` keep their names and are shown
+    as slides 9–14.
   - Fetch slides are 1640×924 as served by the CDN (the largest variant
     available for those files, despite the `_rw_1920` URL pattern); the
     `width`/`height` attributes match the actual files. `lego-04.png` is
@@ -166,5 +168,16 @@ OS/browser (reveals must be instant, with no sliding).
   are now logo buttons — circular outline buttons with the real
   LinkedIn and Behance brand marks (Simple Icons, CC0) and an
   envelope icon for Email. Email is wired to mailto and Behance to
-  https://www.behance.net/nnha; LinkedIn stays disabled until Ninh
-  shares the profile URL.
+  https://www.behance.net/nnha. LinkedIn is wired to
+  https://www.linkedin.com/in/ninh-johnny-ha (from the revised resume).
+
+- **Revised resume sync, 2026-11-06:** title, meta and Open Graph tags
+  now say Planogram Analyst (Boston, MA), Suffolk BA&IS graduate (2024)
+  and current SHTM student at CSU Monterey Bay, matching the page. The
+  intro says "graduate of … (May 2024)" instead of "major … graduate in
+  May 2024". Dates and copy follow the revised resume: Dick's Sporting
+  Good Oct 2024 – Apr 2025 (no longer overlaps Advantage Solutions,
+  Apr 2025 – Present, Boston, MA), BLOQ May 2023 – Sep 2023, revised
+  Advantage Solutions bullets, "reported" (Fetch), "Troubleshoot raw
+  database" (VF), "150 visitors" (BLOQ), and JDA removed from skills.
+  Months are abbreviated consistently (Apr, not April/July).
