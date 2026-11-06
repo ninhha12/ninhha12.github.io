@@ -191,3 +191,8 @@ OS/browser (reveals must be instant, with no sliding).
   dark mode), school + college, degree, and a footer with the location
   and a status pill ("In progress · 2028" / "Graduated May 2024").
   "B.S." for Suffolk comes from the revised resume.
+
+- **Lego project bullets, 2026-11-06:** three bullets written from the
+  deck itself (DESE 2023-24 enrollment data for Somerville, SWOT and 4P
+  marketing mix, the two campaign ideas). Every number comes from the
+  slides; please confirm the wording.
