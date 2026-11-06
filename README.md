@@ -46,6 +46,8 @@ the accurate preview.
   derivatives for `srcset`), `fetch-01.png` … `fetch-12.png`,
   `lego-01.png` … `lego-15.png` without `lego-09.png` (a duplicate
   slide, removed), all with 600w JPEG thumbnails.
+- `assets/images/logos/` — `csumb.svg` and `suffolk.svg`, the official
+  logos downloaded from csumb.edu and suffolk.edu (Education section).
 - `favicon.svg` — "NH" monogram.
 
 ## Notes for Ninh (please confirm)
@@ -182,3 +184,10 @@ OS/browser (reveals must be instant, with no sliding).
   Advantage Solutions bullets, "reported" (Fetch), "Troubleshoot raw
   database" (VF), "150 visitors" (BLOQ), and JDA removed from skills.
   Months are abbreviated consistently (Apr, not April/July).
+
+- **Education redesign, 2026-11-06:** the two centered cards are now two
+  left-aligned cards side by side (stacked on phones), each with the
+  school's real logo on a white plate (so the navy logos stay visible in
+  dark mode), school + college, degree, and a footer with the location
+  and a status pill ("In progress · 2028" / "Graduated May 2024").
+  "B.S." for Suffolk comes from the revised resume.
