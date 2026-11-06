@@ -100,10 +100,10 @@ targets resolve; single H1; no guessed slide descriptions.
 
 ## Scroll pattern & mobile-first (update, 2026-11-06)
 
-- **Scroll-into-view steps:** the Work section is now four numbered steps
-  (01 Fetch, 02 VF Corporation, 03 Database Management, 04 Lego) in the
-  real project order. On desktop each step is a two-column text/visual
-  pair that alternates sides (steps 02 and 04 are flipped); on phones the
+- **Scroll-into-view steps:** the Work section is now three numbered steps
+  (01 Fetch, 02 VF Corporation, 03 Lego; the Database Management project
+  was removed at Ninh's request). On desktop each step is a two-column
+  text/visual pair that alternates sides (step 02 is flipped); on phones the
   steps stack text-first, visual-after. Each step fades/slides in
   (600ms ease, 20px rise) only as it scrolls into view, one at a time,
   via a single `IntersectionObserver` (`threshold: 0.15`,
@@ -145,15 +145,16 @@ OS/browser (reveals must be instant, with no sliding).
   black; buttons use black text on orange in dark mode).
 - **Education:** Ninh is currently attending CSUMB, majoring in SHTM,
   expected graduation 2028. Added as the first education card; Suffolk
-  (graduated May 2024) is kept below it. Hero role and quick facts
-  updated to match (SHTM · CSUMB, expected 2028).
+  (graduated May 2024) is kept below it. Hero role updated to match
+  (SHTM · CSUMB, expected 2028). The About quick-facts row (Based in /
+  Now studying / Currently) was later removed at Ninh's request.
 - **Contact, minimal:** the section is now just "Let's talk." plus the
   email link. The intro sentence, phone number and location lines were
   removed.
 
 - **Feedback fixes, 2026-11-06:** removed the duplicate "Experience"
   eyebrow above the Experience heading; Work steps are now labelled
-  "Project #1"–"Project #4"; contact is now just a heading plus buttons
+  "Project #1"–"Project #3"; contact is now just a heading plus buttons
   (Email wired to mailto; LinkedIn and Behance buttons pending Ninh's
   profile URLs — not guessed). Heading changed from "Let's talk." to
   "Say hello.".
