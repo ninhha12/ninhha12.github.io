@@ -38,8 +38,10 @@ the accurate preview.
   #c06014 burnt orange, #eddbcd warm cream, #000000, #cdcdcd, #ffffff;
   Helvetica throughout; small accent text and buttons use a darker
   burnt orange #9c4a0e so contrast passes WCAG AA).
-- `assets/js/main.js` — one vanilla-JS file (mobile menu, slide galleries
-  + lightbox, back-to-top, active-nav highlighting, reveal-on-scroll).
+- `assets/js/main.js` — one JS file: theme toggle, mobile menu, slide
+  galleries + lightbox, back-to-top, active nav, and the GSAP motion
+  layer. GSAP 3.13 (`gsap`, `ScrollTrigger`, `SplitText`) loads from
+  cdnjs; the site works fully without it.
 - `assets/images/` — the user's own photos and slide decks, downloaded
   from the original site's CDN and served locally (no hotlinking):
   `hero-0.jpg` / `hero-1.jpg` (homepage photos, with 600w/1200w
@@ -61,9 +63,9 @@ the accurate preview.
 - **No GitHub link, resume PDF, GPA, or "available for work"
   statement** — none were on the original site. LinkedIn is linked from
   the contact section (URL taken from the revised resume).
-- **Lego Presentation** has no description on the original site, so the
-  card says so plainly and shows only the year 2024 (from the old
-  cross-link label).
+- **Lego Presentation** had no description on the original site; its two
+  bullets were written from the deck's own slides (see the dated note
+  below) and the year 2024 comes from the old cross-link label.
 - **Image quirks found while rebuilding:**
   - `lego-04.png` could only be downloaded at 1200w — the CDN returns
     HTTP 403 for its 1920w variant (retried several times). It displays
@@ -83,59 +85,52 @@ the accurate preview.
     2024" caption come from the deck's own title slide and the photo
     itself (Suffolk seal on the sash, 2024 tassel) — not from the old
     site's text, which had no description for either.
-- The Instagram reel linked from the original resume could not be
-  verified, so it is mentioned only as an unlinked footnote under the
-  Marketing Manager role — it is not embedded or linked.
 
-## Accessibility checks (QA, 2026-11-06)
+## Design and motion (redesign, 2026-11-07)
 
-Contrast ratios verified by calculation (WCAG 2.2 AA, ≥4.5:1 normal text,
-≥3:1 large text): ink on paper 16.7:1, ink-2 on paper 9.9:1, accent on
-paper 5.2:1, accent on white 5.5:1, white on accent 5.5:1, muted on white
-5.0:1, muted on paper 4.7:1, amber on white 5.0:1, amber on accent-soft
-4.4:1 (metric numbers only, 28px large text — passes 3:1). Two pairs
-failed AA as built and were fixed in QA: muted 13px metric labels and the
-14px BLOQ gap note on the accent-soft background were 4.34:1, so both now
-use ink-2 (~9.3:1 on accent-soft). All 63 local references (images,
-CSS, JS, favicon) return HTTP 200 from a local server; all 7 anchor
-targets resolve; single H1; no guessed slide descriptions.
+Inspired by the feel of microdose.studio (airy light ground, very large
+type, glass pill navigation, scroll-driven text). Nothing of theirs is
+copied: no code, copy, images, logos or signature effects. Ninh's palette
+and Helvetica are kept.
 
-## Scroll pattern & mobile-first (update, 2026-11-06)
+- **Layout:** white ground with soft cream and orange light and faint
+  column lines (`.ground`, fixed, decorative). Sticky header with the
+  wordmark and a glass pill nav; a frosted bar fades in once you scroll.
+  Hero: a status pill (current role), the name set very large, the study
+  line, two buttons, then a photo strip. About is a heading-left,
+  statement-right split. Work projects are full-width rows (cover left,
+  text right; VF is text-only). Experience rows have a date and location
+  rail on the left from 1024px, with the key numbers bold inside the
+  bullets (the old number boxes repeated them). Skills is one list in
+  three columns. Education keeps the logo cards. Contact is a very large
+  "Say hello." with labelled buttons.
+- **Motion (GSAP):** intro timeline (header, status pill, the name letter
+  by letter, then sub-line, buttons and photo strip); the photo strip
+  drifts left while the hero scrolls away; the About statement fills from
+  faint to ink as it scrolls through; section headings rise word by word
+  once; project covers open from an inset frame; `.reveal` blocks fade up
+  in batches; the closing line rises letter by letter; the ground's light
+  drifts slowly. Native scrolling is kept (no scroll hijacking).
+- **Safety nets:** with `prefers-reduced-motion: reduce`, with JS off, or
+  if the GSAP CDN fails (after 2.5s), all content is visible at once. With
+  JS off the mobile menu is a plain link list and the slide galleries are
+  open. `@media print` prints every section whatever the animation state.
+  `ScrollTrigger` re-measures whenever the page height changes (lazy
+  images, opened galleries).
 
-- **Scroll-into-view steps:** the Work section is now three numbered steps
-  (01 Fetch, 02 VF Corporation, 03 Lego; the Database Management project
-  was removed at Ninh's request). On desktop each step is a two-column
-  text/visual pair that alternates sides (step 02 is flipped); on phones the
-  steps stack text-first, visual-after. Each step fades/slides in
-  (600ms ease, 20px rise) only as it scrolls into view, one at a time,
-  via a single `IntersectionObserver` (`threshold: 0.15`,
-  `rootMargin: "0px 0px -8% 0px"`); elements that enter the viewport
-  together stagger 150ms apart (max 450ms), one entering alone has no
-  delay. The Experience timeline entries and skill cards use the same
-  reveal. To add a step, duplicate one `<article class="card step …">`
-  and renumber its `.step-num` — no JS change needed. The pattern is
-  inspired by the Webflow "How it works — Scroll into view" example;
-  no Webflow copy or imagery is used.
-- **Mobile-first:** the base stylesheet is the phone layout (single
-  column, 20px gutters at ≤480px, 17px body, 40px H1 on small phones,
-  ≥44px tap targets, no hover-only interactions, safe-area padding on
-  the lightbox and back-to-top button). Desktop rules are `min-width`
-  enhancements only. No horizontal scrolling at 360px and up (checked
-  in code review).
-- **Safety nets:** the hidden-before-reveal state exists only when JS
-  has run (`html.js`) and motion is allowed — with JS off, no
-  `IntersectionObserver`, or `prefers-reduced-motion: reduce`, all
-  content is visible immediately. Scrolling is never hijacked.
-- **Budgets still met:** CSS ~21 KB (≤30 KB), JS ~7.8 KB (≤15 KB).
+## Accessibility (measured 2026-11-07)
 
-### How to preview the scroll pattern
-
-Serve the folder (`python3 -m http.server 8000`) and scroll slowly
-through Work and Experience on a phone-sized viewport (360–390px) and
-on desktop: each step should appear once, in order, as it enters the
-viewport. Then check the fallbacks: disable JavaScript (everything
-must be visible, no blank sections) and enable reduced motion in the
-OS/browser (reveals must be instant, with no sliding).
+WCAG 2.2 AA contrast, light theme, on white and on the strongest point of
+the orange blur: ink 21 / 15.8:1, ink-2 17.4 / 13.1:1, muted #595959
+7.0 / 5.3:1, accent text #9c4a0e 6.2 / 4.7:1, white on the #9c4a0e
+buttons 6.2:1. Dark theme on black and on the blur: ink #eddbcd 15.6 /
+11.5:1, muted #c9c2b8 11.9 / 8.8:1, accent #ea9a4e 9.2 / 6.8:1, black on
+the #ea9a4e buttons 9.2:1. Other checks: one H1 (SplitText keeps its full
+text as an `aria-label`); focus visible on every control, landing below
+the sticky header (`scroll-padding-top`); 44px tap targets; the mobile
+menu closes on Escape, outside click and resize to desktop; the lightbox
+caption is a polite live region and slide thumbnails are named by their
+alt text; no horizontal scroll from 320px to 1440px.
 
 ## Updates, 2026-11-06 (Ninh's requests)
 
