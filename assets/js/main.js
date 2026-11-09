@@ -168,7 +168,7 @@
     .from(".status", { y: 16, opacity: 0, duration: 0.7 }, "-=0.5");
   if (titleSplit) intro.from(titleSplit.chars, { yPercent: 110, duration: 1.1, stagger: 0.035, ease: "expo.out" }, "-=0.45");
   else if (title) intro.from(title, { y: 40, opacity: 0, duration: 0.9 }, "-=0.45");
-  intro.from(".hero-sub", { y: 24, opacity: 0, duration: 0.8 }, "-=0.75")
+  intro.from(".hero-edu", { y: 24, opacity: 0, duration: 0.8 }, "-=0.75")
     .from(".hero-actions > *", { y: 20, opacity: 0, duration: 0.7, stagger: 0.08 }, "-=0.6")
     .from(".strip-track img", { y: 80, opacity: 0, duration: 1.1, stagger: 0.08, ease: "expo.out" }, "-=0.7");
 
