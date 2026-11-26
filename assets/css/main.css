@@ -220,7 +220,7 @@ html[data-theme="dark"] .btn:not(.btn-ghost):hover { color: #000; }
 .strip { margin-top: 72px; overflow: hidden; padding-bottom: 8px; }
 @media (min-width: 1024px) { .strip { margin-top: 96px; } }
 .strip-track { display: flex; gap: 16px; width: max-content; padding-left: 20px; }
-@media (min-width: 768px) { .strip-track { gap: 24px; padding-left: 40px; } }
+@media (min-width: 768px) { .strip-track { gap: 24px; margin-inline: auto; padding-left: 0; } }
 .strip img {
   height: clamp(200px, 32vw, 380px); width: auto; flex: none;
   border-radius: var(--radius); border: 1px solid var(--glass-line); box-shadow: var(--shadow);
