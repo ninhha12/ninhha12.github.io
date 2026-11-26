@@ -172,14 +172,7 @@
     .from(".hero-actions > *", { y: 20, opacity: 0, duration: 0.7, stagger: 0.08 }, "-=0.6")
     .from(".strip-track img", { y: 80, opacity: 0, duration: 1.1, stagger: 0.08, ease: "expo.out" }, "-=0.7");
 
-  /* 2. Photo strip drifts left while the hero scrolls away. */
-  gsap.to(".strip-track", {
-    x: function () { return -Math.min(320, window.innerWidth * 0.25); },
-    ease: "none",
-    scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: 0.6, invalidateOnRefresh: true }
-  });
-
-  /* 3. About statement: words fill from faint to ink as it scrolls through. */
+  /* 2. About statement: words fill from faint to ink as it scrolls through. */
   var statement = document.querySelector(".statement");
   if (statement && Split) {
     var words = Split.create(statement, { type: "words", aria: "auto" }).words;
@@ -189,7 +182,7 @@
     });
   }
 
-  /* 4. Section headings rise word by word, once. */
+  /* 3. Section headings rise word by word, once. */
   document.querySelectorAll("main section:not(.hero):not(.contact) h2").forEach(function (h) {
     var s = splitLines(h, "words");
     gsap.from(s ? s.words : h, {
@@ -198,7 +191,7 @@
     });
   });
 
-  /* 5. Project covers open from an inset frame and settle their zoom. */
+  /* 4. Project covers open from an inset frame and settle their zoom. */
   document.querySelectorAll(".project-media").forEach(function (m) {
     var img = m.querySelector("img");
     gsap.fromTo(m, { clipPath: "inset(8% 6% 8% 6% round 24px)" }, {
@@ -212,7 +205,7 @@
     });
   });
 
-  /* 6. Everything marked .reveal fades up as it enters, in small batches. */
+  /* 5. Everything marked .reveal fades up as it enters, in small batches. */
   gsap.set(reveals, { opacity: 0, y: 28 });
   ST.batch(reveals, {
     start: "top 90%",
@@ -226,7 +219,7 @@
     }
   });
 
-  /* 7. The closing line rises letter by letter. */
+  /* 6. The closing line rises letter by letter. */
   var contactTitle = document.querySelector(".contact-title");
   if (contactTitle) {
     var cs = splitLines(contactTitle, "words,chars");
@@ -235,7 +228,7 @@
     }
   }
 
-  /* 8. The ground's light drifts slowly (paused when the tab is hidden by GSAP itself). */
+  /* 7. The ground's light drifts slowly (paused when the tab is hidden by GSAP itself). */
   gsap.to(".blob-1", { x: "8vw", y: "6vh", duration: 18, ease: "sine.inOut", yoyo: true, repeat: -1 });
   gsap.to(".blob-2", { x: "-6vw", y: "10vh", duration: 22, ease: "sine.inOut", yoyo: true, repeat: -1 });
   gsap.to(".blob-3", { x: "-10vw", y: "-8vh", duration: 26, ease: "sine.inOut", yoyo: true, repeat: -1 });
