@@ -233,6 +233,25 @@
   gsap.to(".blob-2", { x: "-6vw", y: "10vh", duration: 22, ease: "sine.inOut", yoyo: true, repeat: -1 });
   gsap.to(".blob-3", { x: "-10vw", y: "-8vh", duration: 26, ease: "sine.inOut", yoyo: true, repeat: -1 });
 
+  /* 8. Hero strip: on phones only, the track drifts sideways while
+     scrolling, sliding the second portrait into view (it sits
+     off-screen at rest). Desktop keeps the centered pair, no drift. */
+  var stripMQ = gsap.matchMedia();
+  stripMQ.add("(max-width: 767px)", function () {
+    var stripTrack = document.querySelector(".strip-track");
+    if (!stripTrack) return;
+    gsap.to(stripTrack, {
+      x: function () { return -(stripTrack.scrollWidth - document.documentElement.clientWidth); },
+      ease: "none",
+      scrollTrigger: {
+        trigger: ".strip",
+        start: "top bottom",
+        end: "bottom top",
+        scrub: true
+      }
+    });
+  });
+
   /* Print shows everything (CSS covers the rest), and layout changes re-measure. */
   window.addEventListener("beforeprint", revealAll);
   // Lazy images and opened galleries change the page height after the
